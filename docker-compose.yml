@@ -1,0 +1,16 @@
+version: '3.7'
+networks:
+  shinobi:
+    external: true
+services:
+  deno:
+    build: .
+    ports:
+      - '8000:8000'
+    networks:
+      - shinobi
+    environment:
+      - PORT=8000
+      - CERT_FILE=./.ssl/localhost.crt
+      - KEY_FILE=./.ssl/localhost.key
+    command: ['deno', 'run', '--allow-net', '--allow-env', '--allow-read', 'app.ts']
